@@ -1,7 +1,11 @@
 import express from "express";
+import cors from "cors";
+import "dotenv/config";
 
-const PORT = 8080 || 5050;
+const PORT = process.env.PORT || 5050;
 const app = express();
+
+app.use(cors());
 
 app.get("/", (req, res) => {
     res.send("Welcome to Phora");
