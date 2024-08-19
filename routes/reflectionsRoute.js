@@ -1,9 +1,10 @@
 import express from "express";
+import * as reflectionsController from "../controllers/reflectionsController.js";
 
 const router = express.Router();
 
-router.route("/reflections").get((req, res) => {
-    res.status(200).json({ message: "Welcome to reflections endpoint" });
-});
+router.route("/reflections").post(reflectionsController.createReflection);
+
+// router.route("/reflections/:id").get().put();
 
 export default router;
