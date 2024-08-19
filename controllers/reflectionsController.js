@@ -74,4 +74,37 @@ async function getSingleReflection(req, res) {
     }
 }
 
-export { createReflection, getReflections, getSingleReflection };
+async function updateReflection(req, res) {
+    const { id } = req.params;
+
+    try {
+        if (!req.body.notes || !req.body.word_id || isNaN(req.body.word_id)) {
+            return res.status(400).json({
+                message: "Please make sure to provide valid notes and word_id",
+            });
+        }
+
+        const rowsUpdated = await knex("reflections")
+            .where({ id: id })
+            .update(req.body);
+
+        if (rowsUpdated === 0) {
+            return res.status(404).json({
+                message: `reflection with ID: ${id} not found`,
+            });
+        }
+
+        const updatedReflection = await knex("reflections").where({ id: id });
+
+        res.json(updatedReflection);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export {
+    createReflection,
+    getReflections,
+    getSingleReflection,
+    updateReflection,
+};
