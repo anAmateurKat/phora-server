@@ -23,29 +23,23 @@ async function createReflection(req, res) {
     } catch (error) {
         console.log(error);
     }
-
-    /*
-        const newWarehouse = await knex("warehouses")
-      .where({ id: result[0] })
-      .first();
-
-
-        const newInventoryItem = await knex
-            .select(
-                "id",
-                "warehouse_id",
-                "item_name",
-                "description",
-                "category",
-                "status",
-                "quantity"
-            )
-            .from("inventories")
-            .where({ id: result[0] })
-            .first();
-
-        res.status(201).json(newInventoryItem);
-    */
 }
 
-export { createReflection };
+async function getReflections(req, res) {
+    try {
+        const response = await knex("reflections")
+            .join("wordOfDay", "wordOfDay.id", "=", "reflections.word_id")
+            .select(
+                "reflections.id",
+                "wordOfDay.name AS word",
+                "wordOfDay.fetched_at",
+                "reflections.notes"
+            );
+
+        res.status(200).json(response);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export { createReflection, getReflections };
