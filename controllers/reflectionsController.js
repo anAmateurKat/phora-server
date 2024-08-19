@@ -42,4 +42,36 @@ async function getReflections(req, res) {
     }
 }
 
-export { createReflection, getReflections };
+async function getSingleReflection(req, res) {
+    const { id } = req.params;
+
+    try {
+        const response = await knex("reflections")
+            .join("wordOfDay", "wordOfDay.id", "=", "reflections.word_id")
+            .select(
+                "wordOfDay.id",
+                "wordOfDay.name",
+                "wordOfDay.definition",
+                "wordOfDay.phonetic",
+                "wordOfDay.type",
+                "wordOfDay.origin",
+                "wordOfDay.use",
+                "wordOfDay.funFact",
+                "wordOfDay.fetched_at",
+                "reflections.id AS reflection_id",
+                "reflections.notes"
+            )
+            .where("reflections.id", id)
+            .first();
+
+        if (!response) {
+            return res.status(404).json({ message: "Reflection not found" });
+        }
+
+        res.status(200).json(response);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export { createReflection, getReflections, getSingleReflection };

@@ -8,6 +8,6 @@ router
     .post(reflectionsController.createReflection)
     .get(reflectionsController.getReflections);
 
-// router.route("/reflections/:id").get().put();
+router.route("/reflections/:id").get(reflectionsController.getSingleReflection);
 
 export default router;
