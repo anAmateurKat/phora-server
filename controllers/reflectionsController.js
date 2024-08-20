@@ -21,7 +21,9 @@ async function createReflection(req, res) {
             .first();
         res.status(201).json(newReflection);
     } catch (error) {
-        console.log(error);
+        res.status(500).json({
+            message: `Unable to create reflection: ${error}`,
+        });
     }
 }
 
@@ -38,7 +40,9 @@ async function getReflections(req, res) {
 
         res.status(200).json(response);
     } catch (error) {
-        console.log(error);
+        res.status(500).json({
+            message: `Unable to retrieve reflections: ${error}`,
+        });
     }
 }
 
@@ -70,7 +74,9 @@ async function getSingleReflection(req, res) {
 
         res.status(200).json(response);
     } catch (error) {
-        console.log(error);
+        res.status(500).json({
+            message: `Unable to retrieve reflection: ${error}`,
+        });
     }
 }
 
@@ -98,7 +104,9 @@ async function updateReflection(req, res) {
 
         res.json(updatedReflection);
     } catch (error) {
-        console.error(error);
+        res.status(500).json({
+            message: `Unable to update reflection with ID ${id} : ${error}`,
+        });
     }
 }
 
