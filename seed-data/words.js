@@ -9,6 +9,7 @@ export default [
         use: "e.g. If someone should comment on the pulchritude of your face, you ought to be flattered.",
         funFact:
             "These days pulchritude is considered outdated and is usually only used in highly literary writing or, in more common writing, to achieve a witty effect. This was the winning spelling bee word in the movie 'Akeela and the Bee'",
+        fetched_at: "Mon Aug 19 2024",
     },
     {
         id: 2,
